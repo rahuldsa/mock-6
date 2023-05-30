@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 app.post("/api/register", async (req, res) => {
     const { name, email, password } = req.body;
     try {
-        bcrypt.hash(password, +process.env.salt, async function (err, hash) {
+        bcrypt.hash(password, +7, async function (err, hash) {
             if (err) {
                 console.error(err);
                 res.status(500).send({ err: "Something went wrong" });
@@ -49,7 +49,7 @@ app.post("/api/login", async (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password, async function (err, result) {
                 if (result) {
-                    const token = jwt.sign({ userID: user._id }, process.env.secret);
+                    const token = jwt.sign({ userID: user._id }, rahul);
                     res.send({ msg: "Login Successfull", user, token });
                 } else {
                     res.send({ err: "Wrong Credentials" });
@@ -94,8 +94,8 @@ app.use("/test", (req, res) => {
     res.send(req.body);
 });
 
-app.listen(process.env.PORT, async () => {
-    console.log(`Server runs at  ${process.env.PORT}`);
+app.listen(4500, async () => {
+    console.log(`Server runs at  4500`);
     try {
         await connection;
         console.log("Connected to the database");
